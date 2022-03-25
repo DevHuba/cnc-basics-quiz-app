@@ -5,4 +5,6 @@
     <string name="hint">Enter You`r name please</string>
     <string name="hint_name">Name</string>
     <string name="btn_start">Start</string>
+    <string name="cd_quiz_image">Quiz image</string>
+    <string name="btn_submit_question">Submit</string>
 </resources>
