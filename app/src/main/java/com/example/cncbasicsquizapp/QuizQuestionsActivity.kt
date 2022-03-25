@@ -3,6 +3,7 @@ package com.example.cncbasicsquizapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ProgressBar
+import android.widget.Toast
 import com.example.cncbasicsquizapp.databinding.ActivityQuizQuestionsBinding
 
 class QuizQuestionsActivity : AppCompatActivity() {
@@ -27,14 +28,35 @@ class QuizQuestionsActivity : AppCompatActivity() {
         val questionList = Constants.qetQuestions()
 
         //Get random question
-        val randomNumber = (0..questionList.size).random()
-        val question: Question = questionList[randomNumber]
+
+        val question: Question = questionList[0]
+
+        //Check variable for questions to appear only once
+        val unpickedQuestions = (0..questionList.size).toMutableSet()
+//        val pickedQuestion = (0..questionList.size).toMutableList()
 
         //Setting up progress bar
+        var counter = 1
         progressBar.max = questionList.size
-//        progressBar.progress = currentPosition
-//        tvProgressCount.text = "$currentPosition / ${questionList.size}"
+        progressBar.progress = counter
+        tvProgressCount.text = "$counter/${questionList.size}"
 
+        btnSubmit.setOnClickListener {
+            val randomNumber = (0..questionList.size).random()
+            if (unpickedQuestions.isEmpty()) {
+                Toast.makeText(this, "All questions already appeared", Toast.LENGTH_LONG).show()
+                counter = 0
+            }
+            println(randomNumber)
+            //Update of progress bar
+            progressBar.progress = counter
+            tvProgressCount.text = "$counter/${questionList.size}"
+            println(unpickedQuestions)
+            unpickedQuestions.remove(randomNumber)
+            println(unpickedQuestions)
+            counter++
+            println(counter)
+        }
 
     }
 }
