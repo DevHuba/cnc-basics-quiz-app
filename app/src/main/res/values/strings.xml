@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">CncBasicsQuizApp</string>
+    <string name="app_name" translatable="false">CncBasicsQuizApp</string>
+    <string name="title_text">G code basics</string>
+    <string name="greetings">Welcome</string>
+    <string name="hint">Enter You`r name please</string>
+    <string name="hint_name">Name</string>
+    <string name="btn_start">Start</string>
 </resources>

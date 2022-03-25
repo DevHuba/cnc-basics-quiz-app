@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_text">Г коды - база</string>
+    <string name="greetings">Приветствую</string>
+    <string name="hint">Введи позывной</string>
+    <string name="hint_name">Позывной</string>
+    <string name="btn_start">Погнали</string>
+</resources>
