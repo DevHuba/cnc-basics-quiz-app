@@ -83,11 +83,11 @@ class QuizQuestionsActivity : AppCompatActivity() {
             val handler = Handler(Looper.getMainLooper())
             handler.postDelayed({
                 binding.imgJoke.visibility = View.GONE
-            }, 20)
+            }, 1000)
         }
     }
 
-    //OK //
+    //OK//
     private fun setQuestion() {
         //Set up first question with help of current position
         val question: Question = globalQuestionsList!![currentQuestion - 1]
@@ -114,6 +114,10 @@ class QuizQuestionsActivity : AppCompatActivity() {
         binding.tvAnswer2.text = question.answerTwo
         binding.tvAnswer3.text = question.answerThree
         binding.tvAnswer4.text = question.answerFour
+        binding.tvAnswer1.visibility = View.VISIBLE
+        binding.tvAnswer2.visibility = View.VISIBLE
+        binding.tvAnswer3.visibility = View.VISIBLE
+        binding.tvAnswer4.visibility = View.VISIBLE
     }
 
     //Default style options for all answers
@@ -147,19 +151,40 @@ class QuizQuestionsActivity : AppCompatActivity() {
         tv.background = ContextCompat.getDrawable(this, R.drawable.selected_option_border_bg)
     }
 
+    //Set
     private fun answerView(answer: Int, drawableView: Int) {
+
+        val allViews = ArrayList<TextView>()
+        binding.tvAnswer1.let {
+            allViews.add(0, it)
+        }
+        binding.tvAnswer2.let {
+            allViews.add(1, it)
+        }
+        binding.tvAnswer3.let {
+            allViews.add(2, it)
+        }
+        binding.tvAnswer4.let {
+            allViews.add(3, it)
+        }
+        
         when (answer) {
             1 -> {
                 binding.tvAnswer1.background = ContextCompat.getDrawable(this, drawableView)
+                binding.tvAnswer1.setTextColor(Color.parseColor("#2B2D42"))
             }
             2 -> {
                 binding.tvAnswer2.background = ContextCompat.getDrawable(this, drawableView)
+                binding.tvAnswer1.setTextColor(Color.parseColor("#2B2D42"))
+
             }
             3 -> {
                 binding.tvAnswer3.background = ContextCompat.getDrawable(this, drawableView)
+                binding.tvAnswer1.setTextColor(Color.parseColor("#2B2D42"))
             }
             4 -> {
                 binding.tvAnswer4.background = ContextCompat.getDrawable(this, drawableView)
+                binding.tvAnswer1.setTextColor(Color.parseColor("#2B2D42"))
             }
             else -> {
                 Toast.makeText(this, "Error on answers painting", Toast.LENGTH_SHORT).show()
@@ -167,6 +192,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
         }
 
     }
+
 }
 
 
