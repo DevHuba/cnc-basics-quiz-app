@@ -7,4 +7,5 @@
     <string name="btn_start">Start</string>
     <string name="cd_quiz_image">Quiz image</string>
     <string name="btn_submit_question">Submit</string>
+    <string name="img_joke">joke</string>
 </resources>

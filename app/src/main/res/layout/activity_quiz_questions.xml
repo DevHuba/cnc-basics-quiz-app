@@ -5,15 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_bg"
-    android:fillViewport="true"
-    tools:context=".QuizQuestionsActivity">
+    tools:context=".QuizQuestionsActivity"
+    tools:ignore="ScrollViewCount">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        >
+<!-- TODO: In image view height and width must be dynamic values-->
+        <ImageView
+            android:id="@+id/imgJoke"
+            android:layout_width="700dp"
+            android:layout_height="690dp"
+            android:contentDescription="@string/img_joke"
+            android:visibility="gone" />
+
 
         <TextView
             android:id="@+id/tvQuestion"
@@ -29,8 +38,7 @@
             android:id="@+id/ivQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/cd_quiz_image"
-            tools:src="@drawable/g21" />
+            android:contentDescription="@string/cd_quiz_image" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -126,5 +134,4 @@
             android:textSize="18sp" />
 
     </LinearLayout>
-
 </ScrollView>
