@@ -55,7 +55,7 @@
                 android:layout_weight="1"
                 android:indeterminate="false"
                 android:minHeight="50dp"
-                android:progress="3" />
+                android:progress="0" />
 
             <TextView
                 android:id="@+id/tvQuestionCounter"
@@ -129,7 +129,6 @@
             android:layout_margin="16dp"
             android:background="@drawable/rounded_corner"
             android:backgroundTint="@color/color_text2"
-            android:text="@string/btn_submit_question"
             android:textColor="@color/color_text"
             android:textSize="18sp" />
 

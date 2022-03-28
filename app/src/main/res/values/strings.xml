@@ -8,4 +8,7 @@
     <string name="cd_quiz_image">Quiz image</string>
     <string name="btn_submit_question">Submit</string>
     <string name="img_joke">joke</string>
+    <string name="btn_finish">Finish</string>
+    <string name="btn_submit">Go to next question</string>
+    <string name="btn_after_submit">Submit</string>
 </resources>
