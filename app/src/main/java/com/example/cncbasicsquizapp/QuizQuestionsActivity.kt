@@ -65,7 +65,17 @@ class QuizQuestionsActivity : AppCompatActivity() {
             } else {
                 val question = globalQuestionsList?.get(currentQuestion - 1)
                 if (question?.correctAnswer != globalSelectedAnswer) {
+                    //Setting selected answer with wrong style
                     answerView(globalSelectedAnswer, R.drawable.wrong_option_border_bg)
+
+                    //Image joke logic for wrong answer
+                    binding.imgJoke.setImageResource(R.drawable.prikalivajewsja)
+                    binding.imgJoke.visibility = View.VISIBLE
+                    //Joke shows only for 2000 milliseconds
+                    val handler = Handler(Looper.getMainLooper())
+                    handler.postDelayed({
+                        binding.imgJoke.visibility = View.GONE
+                    }, 1000)
                 }
                 if (question != null) {
                     answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
@@ -80,30 +90,11 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
 
 
-            //Image joke logic
-            binding.imgJoke.setImageResource(R.drawable.prikalivajewsja)
-            binding.imgJoke.visibility = View.VISIBLE
-            //Joke shows only for 2000 milliseconds
-            val handler = Handler(Looper.getMainLooper())
-            handler.postDelayed({
-                binding.imgJoke.visibility = View.GONE
-            }, 1000)
+
         }
     }
 
-    private fun removeClick(clickable:Boolean) {
-        if (clickable) {
-            binding.tvAnswer1.isClickable = true
-            binding.tvAnswer2.isClickable = true
-            binding.tvAnswer3.isClickable = true
-            binding.tvAnswer4.isClickable = true
-        }else{
-            binding.tvAnswer1.isClickable = false
-            binding.tvAnswer2.isClickable = false
-            binding.tvAnswer3.isClickable = false
-            binding.tvAnswer4.isClickable = false
-        }
-    }
+
 
     //OK//
     private fun setQuestion() {
@@ -132,10 +123,6 @@ class QuizQuestionsActivity : AppCompatActivity() {
         binding.tvAnswer2.text = question.answerTwo
         binding.tvAnswer3.text = question.answerThree
         binding.tvAnswer4.text = question.answerFour
-        binding.tvAnswer1.visibility = View.VISIBLE
-        binding.tvAnswer2.visibility = View.VISIBLE
-        binding.tvAnswer3.visibility = View.VISIBLE
-        binding.tvAnswer4.visibility = View.VISIBLE
     }
 
     //Default style options for all answers
@@ -169,24 +156,11 @@ class QuizQuestionsActivity : AppCompatActivity() {
         tv.background = ContextCompat.getDrawable(this, R.drawable.selected_option_border_bg)
     }
 
+
     //Set
     private fun answerView(answer: Int, drawableView: Int) {
 
         removeClick(false)
-
-        val allViews = ArrayList<TextView>()
-        binding.tvAnswer1.let {
-            allViews.add(0, it)
-        }
-        binding.tvAnswer2.let {
-            allViews.add(1, it)
-        }
-        binding.tvAnswer3.let {
-            allViews.add(2, it)
-        }
-        binding.tvAnswer4.let {
-            allViews.add(3, it)
-        }
         
         when (answer) {
             1 -> {
@@ -211,6 +185,21 @@ class QuizQuestionsActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    //Removing clickable option fro text views
+    private fun removeClick(clickable:Boolean) {
+        if (clickable) {
+            binding.tvAnswer1.isClickable = true
+            binding.tvAnswer2.isClickable = true
+            binding.tvAnswer3.isClickable = true
+            binding.tvAnswer4.isClickable = true
+        }else{
+            binding.tvAnswer1.isClickable = false
+            binding.tvAnswer2.isClickable = false
+            binding.tvAnswer3.isClickable = false
+            binding.tvAnswer4.isClickable = false
+        }
     }
 
 }

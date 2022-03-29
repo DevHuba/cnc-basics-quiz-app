@@ -131,7 +131,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:background="@drawable/rounded_corner"
-            android:backgroundTint="@color/color_text2"
             android:textColor="@color/color_text"
             android:textSize="18sp" />
 
