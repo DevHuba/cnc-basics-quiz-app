@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.cncbasicsquizapp.databinding.ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,8 +19,6 @@ class MainActivity : AppCompatActivity() {
 
         val btnStart: Button = binding.btnStart
         val etName: EditText = binding.etName
-
-
 
         btnStart.setOnClickListener {
             if (etName.text.isEmpty()) {

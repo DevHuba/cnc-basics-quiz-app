@@ -47,6 +47,8 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
         //Submit button slick logic
         binding.btnSubmit.setOnClickListener {
+            //After submit removing ability of clicking to answers
+            removeClick(true)
             //If this is first question
             if (globalSelectedAnswer == 0) {
                 currentQuestion++
@@ -76,6 +78,8 @@ class QuizQuestionsActivity : AppCompatActivity() {
                 globalSelectedAnswer = 0
             }
 
+
+
             //Image joke logic
             binding.imgJoke.setImageResource(R.drawable.prikalivajewsja)
             binding.imgJoke.visibility = View.VISIBLE
@@ -84,6 +88,20 @@ class QuizQuestionsActivity : AppCompatActivity() {
             handler.postDelayed({
                 binding.imgJoke.visibility = View.GONE
             }, 1000)
+        }
+    }
+
+    private fun removeClick(clickable:Boolean) {
+        if (clickable) {
+            binding.tvAnswer1.isClickable = true
+            binding.tvAnswer2.isClickable = true
+            binding.tvAnswer3.isClickable = true
+            binding.tvAnswer4.isClickable = true
+        }else{
+            binding.tvAnswer1.isClickable = false
+            binding.tvAnswer2.isClickable = false
+            binding.tvAnswer3.isClickable = false
+            binding.tvAnswer4.isClickable = false
         }
     }
 
@@ -153,6 +171,8 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
     //Set
     private fun answerView(answer: Int, drawableView: Int) {
+
+        removeClick(false)
 
         val allViews = ArrayList<TextView>()
         binding.tvAnswer1.let {
