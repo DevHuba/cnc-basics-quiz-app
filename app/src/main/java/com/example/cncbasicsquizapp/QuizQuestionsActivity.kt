@@ -1,5 +1,6 @@
 package com.example.cncbasicsquizapp
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +27,9 @@ class QuizQuestionsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityQuizQuestionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //Setting up correct progressBar color
+        binding.progressBar.progressTintList = ColorStateList.valueOf(Color.parseColor("#8be375"));
 
         //Get all questions
         globalQuestionsList = Constants.qetQuestions()

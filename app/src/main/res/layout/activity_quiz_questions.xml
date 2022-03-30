@@ -125,12 +125,13 @@
             android:textSize="14sp"
             tools:text="Description of this code" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@drawable/rounded_corner"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/btn_style"
             android:textColor="@color/color_text"
             android:textSize="18sp" />
 

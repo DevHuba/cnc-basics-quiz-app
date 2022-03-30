@@ -5,7 +5,7 @@
         android:width="1dp"
         android:color="@color/color_text2"
         />
-    <solid android:color="@color/color_bg_contrast" />
+    <solid android:color="@color/color_bg_contrast2" />
     <corners android:radius="15dp"/>
 
 </shape>
