@@ -90,29 +90,42 @@ class QuizQuestionsActivity : AppCompatActivity() {
                 val question = globalQuestionsList?.get(questionCounter - 1)
                 //If wrong answer
                 if (question?.correctAnswer != globalSelectedAnswer) {
-
-
-                    //Images random rotation
-                    val randomNumber: Int = getRandom()
-                    if (randomNumber > questionCounter) {
-
-
-                    }
                     //Setting selected answer with wrong style
                     answerView(globalSelectedAnswer, R.drawable.wrong_option_border_bg)
 
+                    //Random images for wrong answer
+                    val wrongImageArray = ArrayList<Int>()
+                    Collections.addAll(wrongImageArray, R.drawable.prikalivajewsja,R.drawable
+                        .sutulij_grustnij,R.drawable.mega_sutulij,R.drawable.sutulij_ustal)
+                    val randomForWrongImages = (0 until wrongImageArray.size).random()
                     //Image joke logic for wrong answer
-                    binding.imgJoke.setImageResource(R.drawable.prikalivajewsja)
+                    binding.imgJoke.setImageResource(wrongImageArray[randomForWrongImages])
                     binding.imgJoke.visibility = View.VISIBLE
                     //Joke shows only for 2000 milliseconds
                     val handler = Handler(Looper.getMainLooper())
                     handler.postDelayed({
                         binding.imgJoke.visibility = View.GONE
                     }, 1000)
+
                 }
                 //If correct answer
                 if (question != null) {
                     answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
+
+                    //Random images for correct answer
+                    val correctImageArray = ArrayList<Int>()
+                    Collections.addAll(correctImageArray, R.drawable.correct_four,R.drawable
+                        .correct_one, R.drawable.correct_two,R.drawable.correct_three,)
+                    val randomForCorrectImages = (0 until correctImageArray.size).random()
+                    //Image joke logic for correct answer
+                    binding.imgJoke.setImageResource(correctImageArray[randomForCorrectImages])
+                    binding.imgJoke.visibility = View.VISIBLE
+                    //Joke shows only for 2000 milliseconds
+                    val handler = Handler(Looper.getMainLooper())
+                    handler.postDelayed({
+                        binding.imgJoke.visibility = View.GONE
+                    }, 2000)
+
                 }
                 //If last question
                 if (questionCounter == globalQuestionsList!!.size) {
@@ -231,11 +244,6 @@ class QuizQuestionsActivity : AppCompatActivity() {
             binding.tvAnswer3.isClickable = false
             binding.tvAnswer4.isClickable = false
         }
-    }
-
-    //Get random number in fixed field
-    private fun getRandom(): Int {
-        return (0 until globalQuestionsList!!.size).random()
     }
 
 

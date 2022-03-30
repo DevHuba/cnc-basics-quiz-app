@@ -22,8 +22,8 @@
             <!-- TODO: In image view height and width must be dynamic values-->
             <ImageView
                 android:id="@+id/imgJoke"
-                android:layout_width="700dp"
-                android:layout_height="690dp"
+                android:layout_width="400dp"
+                android:layout_height="700dp"
                 android:contentDescription="@string/img_joke"
                 android:visibility="gone" />
 
@@ -31,7 +31,8 @@
             android:id="@+id/tvQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="50dp"
             android:gravity="center"
             android:textColor="@color/color_text"
             android:textSize="22sp"
@@ -41,6 +42,7 @@
             android:id="@+id/ivQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
             android:contentDescription="@string/cd_quiz_image" />
 
         <LinearLayout
