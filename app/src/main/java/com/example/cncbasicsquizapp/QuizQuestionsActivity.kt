@@ -22,6 +22,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
     private var questionCounter: Int = 1
     private var globalQuestionsList: ArrayList<Question>? = null
     private var globalSelectedAnswer: Int = 0
+    private var isAnswerPressed: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,98 +49,158 @@ class QuizQuestionsActivity : AppCompatActivity() {
         //Change option style when its clicked
         binding.tvAnswer1.setOnClickListener {
             selectedOption(binding.tvAnswer1, 1)
+            isAnswerPressed = true
+            changeClickable(isAnswerPressed)
+
         }
         binding.tvAnswer2.setOnClickListener {
             selectedOption(binding.tvAnswer2, 2)
+            isAnswerPressed = true
+            changeClickable(isAnswerPressed)
+
         }
         binding.tvAnswer3.setOnClickListener {
             selectedOption(binding.tvAnswer3, 3)
+            isAnswerPressed = true
+            changeClickable(isAnswerPressed)
+
         }
         binding.tvAnswer4.setOnClickListener {
             selectedOption(binding.tvAnswer4, 4)
+            isAnswerPressed = true
+            changeClickable(isAnswerPressed)
+
         }
 
         //Submit button slick logic
         binding.btnSubmit.setOnClickListener {
-            //After submit removing ability of clicking to answers
-            removeClick(true)
-            //If this is first question
-            if (globalSelectedAnswer == 0) {
-                questionCounter++
+            println(isAnswerPressed)
+            println(questionCounter)
 
-                //Check for all used questions
-                when {
-                    questionCounter <= globalQuestionsList!!.size -> {
-                        //Set random questions after first
-                        //Take random number from mutable set
-                        val randomQuestionAfterFirst = scopeForRandomQuestions.random()
-                        //Set random question
-                        setQuestion(randomQuestionAfterFirst)
-                        //Remove picked random number from mutable set of numbers
-                        scopeForRandomQuestions.remove(randomQuestionAfterFirst)
+            if (isAnswerPressed || questionCounter > 1) {
+
+
+//                isAnswerPressed = false
+
+
+                //After submit removing ability of clicking to answers
+                removeClick(true)
+                //If this is first question
+                if (globalSelectedAnswer == 0) {
+                    questionCounter++
+
+                    //Check for all used questions
+                    when {
+                        questionCounter <= globalQuestionsList!!.size -> {
+
+
+//                            binding.btnSubmit.isClickable = isAnswerPressed
+
+
+                            //Set random questions after first
+                            //Take random number from mutable set
+                            val randomQuestionAfterFirst = scopeForRandomQuestions.random()
+                            //Set random question
+                            setQuestion(randomQuestionAfterFirst)
+                            //Remove picked random number from mutable set of numbers
+                            scopeForRandomQuestions.remove(randomQuestionAfterFirst)
+
+
+//                            isAnswerPressed = true
+//                                changeClickable(true)
+
+
+                        }
+                        else -> {
+                            //TODO: Congrats screen logic and intent put here
+                            Toast.makeText(this, "Congrats ! Completed Quiz !", Toast.LENGTH_SHORT)
+                                .show()
+
+                        }
+                    }
+                } else {
+                    changeClickable(true)
+                    //If not first question
+                    //Set question from array list
+                    val question = globalQuestionsList?.get(questionCounter - 1)
+                    //Code that does not depend on correct or wrong answer
+                    if (question != null) {
+                        answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
+                        changeClickable(true)
+                    }
+                    //If wrong answer
+                    if (question?.correctAnswer != globalSelectedAnswer) {
+                        //Setting selected answer with wrong style
+                        answerView(globalSelectedAnswer, R.drawable.wrong_option_border_bg)
+                        changeClickable(true)
+
+                        //Random images for wrong answer
+                        val wrongImageArray = ArrayList<Int>()
+                        Collections.addAll(
+                            wrongImageArray,
+                            R.drawable.prikalivajewsja,
+                            R.drawable.sutulij_grustnij,
+                            R.drawable.mega_sutulij,
+                            R.drawable.sutulij_ustal
+                        )
+                        val randomForWrongImages = (0 until wrongImageArray.size).random()
+                        //Image joke logic for wrong answer
+                        binding.imgJoke.setImageResource(wrongImageArray[randomForWrongImages])
+                        binding.imgJoke.visibility = View.VISIBLE
+                        //Joke shows only for 2000 milliseconds
+                        val handler = Handler(Looper.getMainLooper())
+                        handler.postDelayed({
+                            binding.imgJoke.visibility = View.GONE
+                        }, 500)
 
                     }
-                    else -> {
-                        //TODO: Congrats screen logic and intent put here
-                        Toast.makeText(this, "Congrats ! Completed Quiz !", Toast.LENGTH_SHORT)
-                            .show()
+                    //If correct answer
+                    if (question?.correctAnswer == globalSelectedAnswer) {
+
+                        //Random images for correct answer
+                        val correctImageArray = ArrayList<Int>()
+                        Collections.addAll(
+                            correctImageArray,
+                            R.drawable.correct_one,
+                            R.drawable.correct_two,
+                            R.drawable.correct_three,
+                            R.drawable.correct_four,
+                        )
+                        val randomForCorrectImages = (0 until correctImageArray.size).random()
+                        //Image joke logic for correct answer
+                        binding.imgJoke.setImageResource(correctImageArray[randomForCorrectImages])
+                        binding.imgJoke.visibility = View.VISIBLE
+                        //Joke shows only for 2000 milliseconds
+                        val handler = Handler(Looper.getMainLooper())
+                        handler.postDelayed({
+                            binding.imgJoke.visibility = View.GONE
+                        }, 500)
 
                     }
-                }
-            } else {
-                val question = globalQuestionsList?.get(questionCounter - 1)
-                //If wrong answer
-                if (question?.correctAnswer != globalSelectedAnswer) {
-                    //Setting selected answer with wrong style
-                    answerView(globalSelectedAnswer, R.drawable.wrong_option_border_bg)
+                    //If last question
+                    if (questionCounter == globalQuestionsList!!.size) {
+                        binding.btnSubmit.text = getString(R.string.btn_finish)
+                    }
+                    //If not last question
+                    else {
+                        binding.btnSubmit.text = getString(R.string.btn_submit)
+                    }
+                    globalSelectedAnswer = 0
 
-                    //Random images for wrong answer
-                    val wrongImageArray = ArrayList<Int>()
-                    Collections.addAll(wrongImageArray, R.drawable.prikalivajewsja,R.drawable
-                        .sutulij_grustnij,R.drawable.mega_sutulij,R.drawable.sutulij_ustal)
-                    val randomForWrongImages = (0 until wrongImageArray.size).random()
-                    //Image joke logic for wrong answer
-                    binding.imgJoke.setImageResource(wrongImageArray[randomForWrongImages])
-                    binding.imgJoke.visibility = View.VISIBLE
-                    //Joke shows only for 2000 milliseconds
-                    val handler = Handler(Looper.getMainLooper())
-                    handler.postDelayed({
-                        binding.imgJoke.visibility = View.GONE
-                    }, 1000)
+
+                    isAnswerPressed = false
+
 
                 }
-                //If correct answer
-                if (question != null) {
-                    answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
-
-                    //Random images for correct answer
-                    val correctImageArray = ArrayList<Int>()
-                    Collections.addAll(correctImageArray, R.drawable.correct_four,R.drawable
-                        .correct_one, R.drawable.correct_two,R.drawable.correct_three,)
-                    val randomForCorrectImages = (0 until correctImageArray.size).random()
-                    //Image joke logic for correct answer
-                    binding.imgJoke.setImageResource(correctImageArray[randomForCorrectImages])
-                    binding.imgJoke.visibility = View.VISIBLE
-                    //Joke shows only for 2000 milliseconds
-                    val handler = Handler(Looper.getMainLooper())
-                    handler.postDelayed({
-                        binding.imgJoke.visibility = View.GONE
-                    }, 2000)
-
-                }
-                //If last question
-                if (questionCounter == globalQuestionsList!!.size) {
-                    binding.btnSubmit.text = getString(R.string.btn_finish)
-                }
-                //If not last question
-                else {
-                    binding.btnSubmit.text = getString(R.string.btn_submit)
-                }
-                globalSelectedAnswer = 0
             }
-
         }
+
+//        }
+
+
     }
+
+
 
     private fun setQuestion(randomQuestion: Int) {
         //Set random question
@@ -203,7 +264,6 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
     //Change style of answers after submit button was pressed
     private fun answerView(answer: Int, drawableView: Int) {
-
         //Remove clickability from Text Views of answers
         removeClick(false)
 
@@ -246,6 +306,9 @@ class QuizQuestionsActivity : AppCompatActivity() {
         }
     }
 
+    private fun changeClickable(makeClickable: Boolean) {
+        binding.btnSubmit.isClickable = makeClickable
+    }
 
 }
 
