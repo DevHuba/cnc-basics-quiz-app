@@ -77,50 +77,60 @@ class QuizQuestionsActivity : AppCompatActivity() {
             println(isAnswerPressed)
             println(questionCounter)
 
-            if (isAnswerPressed || questionCounter > 1) {
+
+//            if (isAnswerPressed) {
 
 
 //                isAnswerPressed = false
 
 
-                //After submit removing ability of clicking to answers
-                removeClick(true)
-                //If this is first question
-                if (globalSelectedAnswer == 0) {
-                    questionCounter++
-
-                    //Check for all used questions
-                    when {
-                        questionCounter <= globalQuestionsList!!.size -> {
+            //After submit removing ability of clicking to answers
+            removeClickOnAnswers(true)
+            //If this is first question
+            if (globalSelectedAnswer == 0) {
+                questionCounter++
+                if (!isAnswerPressed) {
+                    changeClickable(false)
+                }
+//                if (isAnswerPressed || questionCounter > 1) {
+                //Check for all used questions
+                when {
+                    questionCounter <= globalQuestionsList!!.size -> {
 
 
 //                            binding.btnSubmit.isClickable = isAnswerPressed
 
 
-                            //Set random questions after first
-                            //Take random number from mutable set
-                            val randomQuestionAfterFirst = scopeForRandomQuestions.random()
-                            //Set random question
-                            setQuestion(randomQuestionAfterFirst)
-                            //Remove picked random number from mutable set of numbers
-                            scopeForRandomQuestions.remove(randomQuestionAfterFirst)
+                        //Set random questions after first
+                        //Take random number from mutable set
+                        val randomQuestionAfterFirst = scopeForRandomQuestions.random()
+                        //Set random question
+                        setQuestion(randomQuestionAfterFirst)
+                        //Remove picked random number from mutable set of numbers
+                        scopeForRandomQuestions.remove(randomQuestionAfterFirst)
 
 
 //                            isAnswerPressed = true
-//                                changeClickable(true)
+                        changeClickable(false)
 
 
-                        }
-                        else -> {
-                            //TODO: Congrats screen logic and intent put here
-                            Toast.makeText(this, "Congrats ! Completed Quiz !", Toast.LENGTH_SHORT)
-                                .show()
-
-                        }
                     }
-                } else {
+                    else -> {
+                        //TODO: Congrats screen logic and intent put here
+                        Toast.makeText(this, "Congrats ! Completed Quiz !", Toast.LENGTH_SHORT)
+                            .show()
+
+                    }
+                }
+//                }
+
+
+            } else {
+                //If not first question
+                if (isAnswerPressed) {
                     changeClickable(true)
-                    //If not first question
+
+
                     //Set question from array list
                     val question = globalQuestionsList?.get(questionCounter - 1)
                     //Code that does not depend on correct or wrong answer
@@ -192,17 +202,19 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
 
                 }
+
             }
         }
-
 //        }
-
 
     }
 
 
-
     private fun setQuestion(randomQuestion: Int) {
+        if (!isAnswerPressed) {
+            binding.btnSubmit.isClickable = false
+        }
+
         //Set random question
         val question: Question = globalQuestionsList!![randomQuestion]
 
@@ -265,7 +277,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
     //Change style of answers after submit button was pressed
     private fun answerView(answer: Int, drawableView: Int) {
         //Remove clickability from Text Views of answers
-        removeClick(false)
+        removeClickOnAnswers(false)
 
         //Setting style accordingly users provided info
         when (answer) {
@@ -292,7 +304,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
     }
 
     //Method that removes clickability from text views
-    private fun removeClick(clickable: Boolean) {
+    private fun removeClickOnAnswers(clickable: Boolean) {
         if (clickable) {
             binding.tvAnswer1.isClickable = true
             binding.tvAnswer2.isClickable = true
