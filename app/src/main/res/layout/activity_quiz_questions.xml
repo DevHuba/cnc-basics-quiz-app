@@ -130,7 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="60dp"
-            android:background="@drawable/btn_style"
+            android:background="@drawable/btn_submit_style"
             android:textColor="@color/color_text"
             android:textSize="18sp" />
 

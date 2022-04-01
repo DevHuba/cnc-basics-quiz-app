@@ -1,6 +1,7 @@
 package com.example.cncbasicsquizapp
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
@@ -24,6 +25,8 @@ class QuizQuestionsActivity : AppCompatActivity() {
     private var globalQuestionsList: ArrayList<Question>? = null
     private var globalSelectedAnswer: Int = 0
     private var isAnswerPressed: Boolean = false
+    private var userName: String? = null
+    private var globalCorrectAnswers : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +38,9 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
         //Get all questions
         globalQuestionsList = Constants.qetQuestions()
+
+        //Set user name from intent with constants
+        userName = intent.getStringExtra(Constants.USER_NAME)
 
         //Random first question logic
         //Add numbers with fixed scope into mutable set for random questions
@@ -95,9 +101,13 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
                         }
                         else -> {
-                            //TODO: Congrats screen logic and intent put here
-                            Toast.makeText(this, "Congrats ! Completed Quiz !", Toast.LENGTH_SHORT)
-                                .show()
+                            val intent = Intent(this, ResultActivity::class.java)
+                            intent.putExtra(Constants.USER_NAME, userName)
+                            intent.putExtra(Constants.CORRECT_ANSWERS, globalCorrectAnswers.toString())
+                            intent.putExtra(Constants.TOTAL_QUESTIONS, globalQuestionsList!!.size
+                                .toString())
+                            startActivity(intent)
+                            finish()
 
                         }
                     }
@@ -142,7 +152,11 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
                     }
                     //If correct answer
-                    if (question?.correctAnswer == globalSelectedAnswer) {
+                    else {
+
+
+                        globalCorrectAnswers++
+
 
                         //Random images for correct answer
                         val correctImageArray = ArrayList<Int>()
