@@ -1,5 +1,6 @@
 package com.example.cncbasicsquizapp
 
+import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
@@ -30,7 +31,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //Setting up correct progressBar color
-        binding.progressBar.progressTintList = ColorStateList.valueOf(Color.parseColor("#8be375"));
+        binding.progressBar.progressTintList = ColorStateList.valueOf(Color.parseColor("#8be375"))
 
         //Get all questions
         globalQuestionsList = Constants.qetQuestions()
@@ -180,6 +181,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private fun setQuestion(randomQuestion: Int) {
         if (questionCounter == 1) {
             binding.btnSubmit.isClickable = false
@@ -202,7 +204,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
         binding.progressBar.progress = questionCounter
         binding.progressBar.max = globalQuestionsList!!.size
         binding.tvQuestionCounter.text =
-            "${questionCounter}" + "/" + "${globalQuestionsList!!.size}"
+            "$questionCounter" + "/" + "${globalQuestionsList!!.size}"
 
         //Setting up first question
         binding.tvQuestion.text = question.question
