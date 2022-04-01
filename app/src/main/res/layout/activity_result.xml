@@ -39,7 +39,7 @@
         android:id="@+id/tvScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="20dp"
+        android:layout_marginVertical="25dp"
         android:textColor="@color/color_hint"
         android:textSize="20sp" />
 

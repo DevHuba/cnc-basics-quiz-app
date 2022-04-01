@@ -8,7 +8,7 @@ import java.util.*
 
 class ResultActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityResultBinding
+    private lateinit var binding: ActivityResultBinding
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,17 +27,24 @@ class ResultActivity : AppCompatActivity() {
 
         //Check for null safety
         if (correctAnswers != null && totalQuests != null) {
-                //Check for MORE than 50%
-                if (correctAnswers >= totalQuests / 2) {
-                    //Set name and text into info view
-                    binding.tvInfo.text = "Well done $userName"
-                    binding.ivResult.setImageResource(R.drawable.finish2)
+            //Check for MORE than 70%
+            if (correctAnswers >= totalQuests * 0.7) {
+                //Set name and text into info view
+                binding.tvInfo.text = "Great job $userName !"
+                binding.ivResult.setImageResource(R.drawable.finish2)
 
             }
-                //Check for LESS than 50%
-                else if (correctAnswers < totalQuests / 2) {
-                    binding.tvInfo.text = "$userName you need more practice... Try one more time"
-                    binding.ivResult.setImageResource(R.drawable.finish)
+            //Check for MORE than 50%
+            else if (correctAnswers >= totalQuests * 0.5) {
+                binding.tvInfo.text = "Good result $userName, but you must be more attentive"
+                binding.ivResult.setImageResource(R.drawable.finish)
+
+            }
+            //Check for LESS than 50%
+            else if (correctAnswers < totalQuests / 2) {
+                binding.tvInfo.text = "You need more practice $userName"
+                binding.ivResult.setImageResource(R.drawable.brain)
+
             }
         }
 
