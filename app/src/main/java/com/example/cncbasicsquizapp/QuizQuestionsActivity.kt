@@ -45,7 +45,6 @@ class QuizQuestionsActivity : AppCompatActivity() {
         //Remove picked random number from mutable set of numbers
         scopeForRandomQuestions.remove(randomFirstQuestion)
 
-
         //Change option style when its clicked
         binding.tvAnswer1.setOnClickListener {
             selectedOption(binding.tvAnswer1, 1)
@@ -72,41 +71,17 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
         }
 
-        changeClickable(false)
-
-
         //Submit button slick logic
         binding.btnSubmit.setOnClickListener {
-
-
-            println(isAnswerPressed)
-            println(questionCounter)
-
-
-
             if (isAnswerPressed && globalSelectedAnswer == 0) {
-
-
-
-
-
                 //After submit removing ability of clicking to answers
                 removeClickOnAnswers(true)
                 //If this is first question
                 if (globalSelectedAnswer == 0) {
                     questionCounter++
-//                if (isAnswerPressed) {
-//                    changeClickable(false)
-//                }
-//                if (isAnswerPressed || questionCounter > 1) {
                     //Check for all used questions
                     when {
                         questionCounter <= globalQuestionsList!!.size -> {
-
-
-//                            binding.btnSubmit.isClickable = isAnswerPressed
-
-
                             //Set random questions after first
                             //Take random number from mutable set
                             val randomQuestionAfterFirst = scopeForRandomQuestions.random()
@@ -114,11 +89,8 @@ class QuizQuestionsActivity : AppCompatActivity() {
                             setQuestion(randomQuestionAfterFirst)
                             //Remove picked random number from mutable set of numbers
                             scopeForRandomQuestions.remove(randomQuestionAfterFirst)
-
-
-//                            isAnswerPressed = true
+                            //After every new question mute button
                             changeClickable(false)
-
 
                         }
                         else -> {
@@ -135,8 +107,6 @@ class QuizQuestionsActivity : AppCompatActivity() {
                 //If not first question
                 if (isAnswerPressed) {
                     changeClickable(true)
-
-
                     //Set question from array list
                     val question = globalQuestionsList?.get(questionCounter - 1)
                     //Code that does not depend on correct or wrong answer
@@ -167,7 +137,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
                         val handler = Handler(Looper.getMainLooper())
                         handler.postDelayed({
                             binding.imgJoke.visibility = View.GONE
-                        }, 500)
+                        }, 100)
 
                     }
                     //If correct answer
@@ -190,7 +160,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
                         val handler = Handler(Looper.getMainLooper())
                         handler.postDelayed({
                             binding.imgJoke.visibility = View.GONE
-                        }, 500)
+                        }, 100)
 
                     }
                     //If last question
@@ -276,7 +246,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
     //Change style of answers after submit button was pressed
     private fun answerView(answer: Int, drawableView: Int) {
-        //Remove clickability from Text Views of answers
+        //Remove clickable from Text Views of answers
         removeClickOnAnswers(false)
 
         //Setting style accordingly users provided info
@@ -303,7 +273,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
         }
     }
 
-    //Method that removes clickability from text views
+    //Method that remove clickable from text views
     private fun removeClickOnAnswers(clickable: Boolean) {
         //Change button state to clickable in answer view
         isAnswerPressed = true
