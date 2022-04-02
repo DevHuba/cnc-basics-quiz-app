@@ -5,54 +5,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_text2"
-    android:gravity="center"
     android:orientation="vertical"
     android:padding="20dp"
     tools:context=".ResultActivity">
 
     <TextView
-        android:id="@+id/tvResult"
+        android:id="@+id/tvScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="Result"
-        android:textColor="@color/color_text"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:layout_marginVertical="60dp"
+        android:textColor="@color/color_hint"
         android:textSize="25sp" />
 
-    <ImageView
-        android:id="@+id/ivResult"
-        android:layout_width="334dp"
-        android:layout_height="398dp"
-        android:contentDescription="@string/result_image_desc"
-        />
+    <FrameLayout
+        android:id="@+id/flFail"
+        android:layout_width="wrap_content"
+        android:layout_height="471dp"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/iv_resultBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/finish_image"
+            android:src="@drawable/brain" />
+
+        <ImageView
+            android:id="@+id/iv_resultOnTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/iv_failed"
+            android:src="@drawable/failed" />
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/tv_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:textColor="@color/color_text"
-        android:textSize="25sp" />
-
-
-    <TextView
-        android:id="@+id/tvScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="25dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginVertical="40dp"
         android:textColor="@color/color_hint"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnFinishQuiz"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:layout_marginHorizontal="10dp"
         android:background="@drawable/btn_finish_style"
         android:text="@string/btn_finish_quiz"
         android:textColor="@color/color_text"
-        android:textSize="18sp"
-        />
+        android:textSize="18sp" />
 
 
 </LinearLayout>

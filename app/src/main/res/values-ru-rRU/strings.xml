@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_text">Г коды - база</string>
+    <string name="title_text">G/M коды - база</string>
     <string name="greetings">Приветствую</string>
-    <string name="hint">Введи позывной</string>
-    <string name="hint_name">Позывной</string>
+    <string name="hint">Как тебя называть то?</string>
+    <string name="hint_name">Имя</string>
     <string name="btn_start">Погнали</string>
+    <string name="cd_quiz_image">картинка вопроса</string>
+    <string name="img_joke">картинка прикол</string>
+    <string name="btn_finish">результаты</string>
+    <string name="btn_submit_one">давай следующий</string>
+    <string name="btn_submit_two">подсобрался</string>
+    <string name="btn_after_submit">проверить</string>
+    <string name="result_image_desc">картинка результат</string>
+    <string name="btn_finish_quiz">замутим ещё разок ?</string>
+    <string name="finish_image">картинка сдал</string>
+    <string name="iv_failed">картинка не сдал</string>
 </resources>

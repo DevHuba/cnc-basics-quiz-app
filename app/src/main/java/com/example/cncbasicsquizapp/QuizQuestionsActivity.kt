@@ -23,10 +23,11 @@ class QuizQuestionsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityQuizQuestionsBinding
     private var questionCounter: Int = 1
     private var globalQuestionsList: ArrayList<Question>? = null
+    private var prefixQuestionList: ArrayList<String>? = null
     private var globalSelectedAnswer: Int = 0
     private var isAnswerPressed: Boolean = false
     private var userName: String? = null
-    private var globalCorrectAnswers : Int = 0
+    private var globalCorrectAnswers: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,9 +104,10 @@ class QuizQuestionsActivity : AppCompatActivity() {
                         else -> {
                             val intent = Intent(this, ResultActivity::class.java)
                             intent.putExtra(Constants.USER_NAME, userName)
-                            intent.putExtra(Constants.CORRECT_ANSWERS, globalCorrectAnswers.toString())
-                            intent.putExtra(Constants.TOTAL_QUESTIONS, globalQuestionsList!!.size
-                                .toString())
+                            intent.putExtra(Constants.CORRECT_ANSWERS, globalCorrectAnswers)
+                            intent.putExtra(
+                                Constants.TOTAL_QUESTIONS, globalQuestionsList!!.size
+                            )
                             startActivity(intent)
                             finish()
 
@@ -118,13 +120,16 @@ class QuizQuestionsActivity : AppCompatActivity() {
                 //If not first question
                 if (isAnswerPressed) {
                     changeClickable(true)
+
                     //Set question from array list
                     val question = globalQuestionsList?.get(questionCounter - 1)
+
                     //Code that does not depend on correct or wrong answer
                     if (question != null) {
                         answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
                         changeClickable(true)
                     }
+
                     //If wrong answer
                     if (question?.correctAnswer != globalSelectedAnswer) {
                         //Setting selected answer with wrong style
@@ -149,15 +154,11 @@ class QuizQuestionsActivity : AppCompatActivity() {
                         handler.postDelayed({
                             binding.imgJoke.visibility = View.GONE
                         }, 100)
-
                     }
+
                     //If correct answer
                     else {
-
-
                         globalCorrectAnswers++
-
-
                         //Random images for correct answer
                         val correctImageArray = ArrayList<Int>()
                         Collections.addAll(
@@ -176,21 +177,26 @@ class QuizQuestionsActivity : AppCompatActivity() {
                         handler.postDelayed({
                             binding.imgJoke.visibility = View.GONE
                         }, 100)
-
                     }
+
                     //If last question
                     if (questionCounter == globalQuestionsList!!.size) {
                         binding.btnSubmit.text = getString(R.string.btn_finish)
                     }
-                    //If not last question
+
+//                  If not last question
                     else {
-                        binding.btnSubmit.text = getString(R.string.btn_submit)
+                        if (question?.correctAnswer != globalCorrectAnswers) {
+                            binding.btnSubmit.text = getString(R.string.btn_submit_two)
+                        } else {
+                            binding.btnSubmit.text = getString(R.string.btn_submit_one)
+                        }
                     }
                     globalSelectedAnswer = 0
                 }
-
             }
         }
+
 
     }
 
@@ -220,9 +226,20 @@ class QuizQuestionsActivity : AppCompatActivity() {
         binding.tvQuestionCounter.text =
             "$questionCounter" + "/" + "${globalQuestionsList!!.size}"
 
+        //Array for question prefix
+        val prefixArray: ArrayList<String> = arrayListOf(
+            "Укажи ка мне", "Какое будет", "Чикни что за",
+            "Напомни ка", "Тыкни", "Выбери", "Тычкани", "Клацани"
+        )
+
         //Setting up first question
-        binding.tvQuestion.text = question.question
+        //Chose random prefix
+        val randomPrefix = prefixArray[(0 until prefixArray.size).random()]
+        //Set random prefix and question
+        binding.tvQuestion.text = "$randomPrefix ${question.question}"
+        //Set question image
         binding.ivQuestion.setImageResource(question.image)
+        //Set answers
         binding.tvAnswer1.text = question.answerOne
         binding.tvAnswer2.text = question.answerTwo
         binding.tvAnswer3.text = question.answerThree

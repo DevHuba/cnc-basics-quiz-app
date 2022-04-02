@@ -1,10 +1,11 @@
 package com.example.cncbasicsquizapp
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.example.cncbasicsquizapp.databinding.ActivityResultBinding
-import java.util.*
 
 class ResultActivity : AppCompatActivity() {
 
@@ -16,37 +17,64 @@ class ResultActivity : AppCompatActivity() {
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         //Take data from intent
         val userName = intent.getStringExtra(Constants.USER_NAME)
-        val totalQuests = intent.getStringExtra(Constants.TOTAL_QUESTIONS)?.toInt()
-        val correctAnswers = intent.getStringExtra(Constants.CORRECT_ANSWERS)?.toInt()
+        val totalQuests = intent.getIntExtra(Constants.TOTAL_QUESTIONS, 1)
+        val correctAnswers = intent.getIntExtra(Constants.CORRECT_ANSWERS,1)
 
         //Show user score
-        binding.tvScore.text = "You`r score is $correctAnswers / $totalQuests"
+        binding.tvScore.text = "Правильных $correctAnswers/$totalQuests Всего"
 
+        //Emojis with string representation of an unicode character
+        val emojiEducation: String = getEmoji(0x1F393)
+        val emojiParty: String = getEmoji(0x1F389)
+        val emojiGoblin: String = getEmoji(0x1F47A)
+        val emojiAnger: String = getEmoji(0x1F525)
+        val emojiThumbsUp: String = getEmoji(0x1F44D)
 
-        //Check for null safety
-        if (correctAnswers != null && totalQuests != null) {
-            //Check for MORE than 70%
-            if (correctAnswers >= totalQuests * 0.7) {
+        //Check for MORE than 70%
+        when {
+            correctAnswers >= totalQuests * 0.7 -> {
                 //Set name and text into info view
-                binding.tvInfo.text = "Great job $userName !"
-                binding.ivResult.setImageResource(R.drawable.finish2)
+                binding.tvInfo.text =
+                    "$emojiParty Отличная работа $userName $emojiParty\n" +
+                            "$emojiEducation Теперь можно готовиться к устной $emojiEducation"
+                binding.ivResultBottom.setImageResource(R.drawable.finish2)
+                binding.ivResultOnTop.visibility = View.GONE
 
             }
             //Check for MORE than 50%
-            else if (correctAnswers >= totalQuests * 0.5) {
-                binding.tvInfo.text = "Good result $userName, but you must be more attentive"
-                binding.ivResult.setImageResource(R.drawable.finish)
+            correctAnswers >= totalQuests * 0.5 -> {
+                binding.tvInfo.text =
+                    "$emojiThumbsUp Неплохо $userName $emojiThumbsUp\n" +
+                            "Ты можешь лучше, повнимательней..."
+                binding.ivResultBottom.setImageResource(R.drawable.finish)
+                binding.ivResultOnTop.visibility = View.GONE
 
             }
             //Check for LESS than 50%
-            else if (correctAnswers < totalQuests / 2) {
-                binding.tvInfo.text = "You need more practice $userName"
-                binding.ivResult.setImageResource(R.drawable.brain)
+            correctAnswers < totalQuests / 2 -> {
+                binding.tvInfo.text = "$emojiGoblin $userName $emojiGoblin\n" +
+                        "$emojiAnger БООЛЬШЕ ПРАКТИКИ $emojiAnger\n" +
+                        " $emojiAnger $emojiAnger БООООЛЬШЕ $emojiAnger $emojiAnger"
+                binding.ivResultBottom.setImageResource(R.drawable.brain)
+                binding.ivResultOnTop.setImageResource(R.drawable.failed)
 
             }
         }
 
+        binding.btnFinishQuiz.setOnClickListener {
+            //Back to quiz start
+            startActivity(Intent(this,MainActivity::class.java))
+        }
+
     }
+
+    //Represents unicode into string emoji
+    private fun getEmoji(unicode: Int): String {
+        return String(Character.toChars(unicode))
+    }
+
 }
