@@ -25,7 +25,7 @@ class ResultActivity : AppCompatActivity() {
         val correctAnswers = intent.getIntExtra(Constants.CORRECT_ANSWERS,1)
 
         //Show user score
-        binding.tvScore.text = "Правильных $correctAnswers/$totalQuests Всего"
+        binding.tvScore.text = "Правильных $correctAnswers из $totalQuests"
 
         //Emojis with string representation of an unicode character
         val emojiEducation: String = getEmoji(0x1F393)

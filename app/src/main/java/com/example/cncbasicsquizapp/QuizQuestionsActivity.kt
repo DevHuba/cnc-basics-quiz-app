@@ -23,11 +23,16 @@ class QuizQuestionsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityQuizQuestionsBinding
     private var questionCounter: Int = 1
     private var globalQuestionsList: ArrayList<Question>? = null
-    private var prefixQuestionList: ArrayList<String>? = null
     private var globalSelectedAnswer: Int = 0
     private var isAnswerPressed: Boolean = false
     private var userName: String? = null
+
+    //Count of total correct answers
     private var globalCorrectAnswers: Int = 0
+
+    //Concrete correct answer
+    private var gCorrectAnswer: Int = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,27 +60,27 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
         //Change option style when its clicked
         binding.tvAnswer1.setOnClickListener {
-            selectedOption(binding.tvAnswer1, 1)
+            selectedOptionStyle(binding.tvAnswer1, 1)
             isAnswerPressed = true
-            changeClickable(isAnswerPressed)
+            changeSubmitClickable(isAnswerPressed)
 
         }
         binding.tvAnswer2.setOnClickListener {
-            selectedOption(binding.tvAnswer2, 2)
+            selectedOptionStyle(binding.tvAnswer2, 2)
             isAnswerPressed = true
-            changeClickable(isAnswerPressed)
+            changeSubmitClickable(isAnswerPressed)
 
         }
         binding.tvAnswer3.setOnClickListener {
-            selectedOption(binding.tvAnswer3, 3)
+            selectedOptionStyle(binding.tvAnswer3, 3)
             isAnswerPressed = true
-            changeClickable(isAnswerPressed)
+            changeSubmitClickable(isAnswerPressed)
 
         }
         binding.tvAnswer4.setOnClickListener {
-            selectedOption(binding.tvAnswer4, 4)
+            selectedOptionStyle(binding.tvAnswer4, 4)
             isAnswerPressed = true
-            changeClickable(isAnswerPressed)
+            changeSubmitClickable(isAnswerPressed)
 
         }
 
@@ -98,7 +103,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
                             //Remove picked random number from mutable set of numbers
                             scopeForRandomQuestions.remove(randomQuestionAfterFirst)
                             //After every new question mute button
-                            changeClickable(false)
+                            changeSubmitClickable(false)
 
                         }
                         else -> {
@@ -119,22 +124,23 @@ class QuizQuestionsActivity : AppCompatActivity() {
             } else {
                 //If not first question
                 if (isAnswerPressed) {
-                    changeClickable(true)
-
                     //Set question from array list
                     val question = globalQuestionsList?.get(questionCounter - 1)
 
                     //Code that does not depend on correct or wrong answer
                     if (question != null) {
-                        answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
-                        changeClickable(true)
+                        answerView(gCorrectAnswer, R.drawable.correct_option_border_bg)
+                        correctAnswerStyle(gCorrectAnswer,R.drawable.correct_option_border_bg)
+                        changeSubmitClickable(true)
                     }
 
                     //If wrong answer
-                    if (question?.correctAnswer != globalSelectedAnswer) {
+                    if (gCorrectAnswer != globalSelectedAnswer) {
+
                         //Setting selected answer with wrong style
                         answerView(globalSelectedAnswer, R.drawable.wrong_option_border_bg)
-                        changeClickable(true)
+
+                        changeSubmitClickable(true)
 
                         //Random images for wrong answer
                         val wrongImageArray = ArrayList<Int>()
@@ -159,6 +165,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
                     //If correct answer
                     else {
                         globalCorrectAnswers++
+
                         //Random images for correct answer
                         val correctImageArray = ArrayList<Int>()
                         Collections.addAll(
@@ -197,21 +204,16 @@ class QuizQuestionsActivity : AppCompatActivity() {
             }
         }
 
-
     }
-
 
     @SuppressLint("SetTextI18n")
     private fun setQuestion(randomQuestion: Int) {
-        if (questionCounter == 1) {
-            binding.btnSubmit.isClickable = false
-        }
-
-        //Set random question
-        val question: Question = globalQuestionsList!![randomQuestion]
 
         //Set default options
         defaultOptions()
+
+        //Set random question
+        val question: Question = globalQuestionsList!![randomQuestion]
 
         //Check for end of quiz and is not answerView
         if (questionCounter == globalQuestionsList!!.size && globalSelectedAnswer != 0) {
@@ -228,7 +230,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
         //Array for question prefix
         val prefixArray: ArrayList<String> = arrayListOf(
-            "Укажи ка мне", "Какое будет", "Чикни что за",
+            "Укажи ка", "Какое будет", "Чикни что за",
             "Напомни ка", "Тыкни", "Выбери", "Тычкани", "Клацани"
         )
 
@@ -239,16 +241,70 @@ class QuizQuestionsActivity : AppCompatActivity() {
         binding.tvQuestion.text = "$randomPrefix ${question.question}"
         //Set question image
         binding.ivQuestion.setImageResource(question.image)
-        //Set answers
-        binding.tvAnswer1.text = question.answerOne
-        binding.tvAnswer2.text = question.answerTwo
-        binding.tvAnswer3.text = question.answerThree
-        binding.tvAnswer4.text = question.answerFour
+
+        //Set random answers
+        val answersForQuestion = arrayListOf(
+            question.answerOne,
+            question.answerTwo,
+            question.answerThree,
+            question.answerFour
+        )
+        //Add numbers with fixed scope into mutable set for random answers
+        val scopeForRandomAnswers = (0 until answersForQuestion.size).toMutableSet()
+
+        //Loop 4 times ( 4 variants of answers )
+        var i = 0
+        while (i < 4) {
+            i++
+            //Take random number from scope
+            val randomAnswer = scopeForRandomAnswers.random()
+            when (i) {
+                1 -> {
+                    //Fill text view using random string
+                    binding.tvAnswer1.text = answersForQuestion[randomAnswer]
+                    //Remove used number from scope
+                    scopeForRandomAnswers.remove(randomAnswer)
+                    //Check fro correct answer
+                    if (binding.tvAnswer1.text == question.answerOne) {
+                        gCorrectAnswer = 1
+                    }
+                }
+                2 -> {
+                    binding.tvAnswer2.text = answersForQuestion[randomAnswer]
+                    scopeForRandomAnswers.remove(randomAnswer)
+                    if (binding.tvAnswer2.text == question.answerOne) {
+                        gCorrectAnswer = 2
+                    }
+                }
+                3 -> {
+                    binding.tvAnswer3.text = answersForQuestion[randomAnswer]
+                    scopeForRandomAnswers.remove(randomAnswer)
+                    if (binding.tvAnswer3.text == question.answerOne) {
+                        gCorrectAnswer = 3
+                    }
+                }
+                4 -> {
+                    binding.tvAnswer4.text = answersForQuestion[randomAnswer]
+                    scopeForRandomAnswers.remove(randomAnswer)
+                    if (binding.tvAnswer4.text == question.answerOne) {
+                        gCorrectAnswer = 4
+                    }
+                }
+                else -> {
+                    Toast.makeText(this, "Error in for each for answers", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
     }
 
     //Default style options for all answers
     private fun defaultOptions() {
+
+        //Create array for default options styling
         val options = ArrayList<TextView>()
+
+        //Add Text Views into array
         binding.tvAnswer1.let {
             options.add(0, it)
         }
@@ -262,19 +318,46 @@ class QuizQuestionsActivity : AppCompatActivity() {
             options.add(3, it)
         }
 
+        //Style each option in array
         for (i in options) {
-            i.setTextColor(Color.parseColor("#f4f3f3"))
+            i.setTextColor(Color.parseColor("#e6dfdf"))
             i.typeface = Typeface.DEFAULT
             i.background = ContextCompat.getDrawable(this, R.drawable.default_option_border_bg)
         }
     }
 
-    //Style for selected option
-    private fun selectedOption(tv: TextView, selectedOptionNum: Int) {
+    //Style for selected answer
+    private fun selectedOptionStyle(tv: TextView, selectedOptionNum: Int) {
         defaultOptions()
         globalSelectedAnswer = selectedOptionNum
         tv.setTextColor(Color.parseColor("#f4f3f3"))
         tv.background = ContextCompat.getDrawable(this, R.drawable.selected_option_border_bg)
+    }
+
+    //Style for correct answer
+    private fun correctAnswerStyle(answer: Int, drawableView: Int) {
+        //Setting style accordingly correct answer
+        when (answer) {
+            1 -> {
+                binding.tvAnswer1.background = ContextCompat.getDrawable(this, drawableView)
+                binding.tvAnswer1.setTextColor(ContextCompat.getColor(this,R.color.color_text2))
+            }
+            2 -> {
+                binding.tvAnswer2.background = ContextCompat.getDrawable(this, drawableView)
+                binding.tvAnswer2.setTextColor(ContextCompat.getColor(this,R.color.color_text2))
+            }
+            3 -> {
+                binding.tvAnswer3.background = ContextCompat.getDrawable(this, drawableView)
+                binding.tvAnswer3.setTextColor(ContextCompat.getColor(this,R.color.color_text2))
+            }
+            4 -> {
+                binding.tvAnswer4.background = ContextCompat.getDrawable(this, drawableView)
+                binding.tvAnswer4.setTextColor(ContextCompat.getColor(this,R.color.color_text2))
+            }
+            else -> {
+                Toast.makeText(this, "Error on answers painting", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     //Change style of answers after submit button was pressed
@@ -286,19 +369,19 @@ class QuizQuestionsActivity : AppCompatActivity() {
         when (answer) {
             1 -> {
                 binding.tvAnswer1.background = ContextCompat.getDrawable(this, drawableView)
-                binding.tvAnswer1.setTextColor(Color.parseColor("#2B2D42"))
+                binding.tvAnswer1.setTextColor(ContextCompat.getColor(this,R.color.color_text))
             }
             2 -> {
                 binding.tvAnswer2.background = ContextCompat.getDrawable(this, drawableView)
-                binding.tvAnswer1.setTextColor(Color.parseColor("#2B2D42"))
+                binding.tvAnswer2.setTextColor(ContextCompat.getColor(this,R.color.color_text))
             }
             3 -> {
                 binding.tvAnswer3.background = ContextCompat.getDrawable(this, drawableView)
-                binding.tvAnswer1.setTextColor(Color.parseColor("#2B2D42"))
+                binding.tvAnswer3.setTextColor(ContextCompat.getColor(this,R.color.color_text))
             }
             4 -> {
                 binding.tvAnswer4.background = ContextCompat.getDrawable(this, drawableView)
-                binding.tvAnswer1.setTextColor(Color.parseColor("#2B2D42"))
+                binding.tvAnswer4.setTextColor(ContextCompat.getColor(this,R.color.color_text))
             }
             else -> {
                 Toast.makeText(this, "Error on answers painting", Toast.LENGTH_SHORT).show()
@@ -323,9 +406,10 @@ class QuizQuestionsActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeClickable(makeClickable: Boolean) {
+    private fun changeSubmitClickable(makeClickable: Boolean) {
         binding.btnSubmit.isClickable = makeClickable
     }
+
 
 }
 
