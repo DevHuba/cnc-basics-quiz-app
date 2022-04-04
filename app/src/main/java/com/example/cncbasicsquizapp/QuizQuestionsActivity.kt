@@ -159,7 +159,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
                         val handler = Handler(Looper.getMainLooper())
                         handler.postDelayed({
                             binding.imgJoke.visibility = View.GONE
-                        }, 100)
+                        }, 2000)
                     }
 
                     //If correct answer
@@ -183,7 +183,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
                         val handler = Handler(Looper.getMainLooper())
                         handler.postDelayed({
                             binding.imgJoke.visibility = View.GONE
-                        }, 100)
+                        }, 2000)
                     }
 
                     //If last question
