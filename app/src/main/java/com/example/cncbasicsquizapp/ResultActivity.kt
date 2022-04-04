@@ -36,7 +36,7 @@ class ResultActivity : AppCompatActivity() {
 
         //Check for MORE than 70%
         when {
-            correctAnswers >= totalQuests * 0.7 -> {
+            correctAnswers >= totalQuests.toDouble() * 0.7 -> {
                 //Set name and text into info view
                 binding.tvInfo.text =
                     "$emojiParty Отличная работа $userName $emojiParty\n" +
@@ -46,7 +46,7 @@ class ResultActivity : AppCompatActivity() {
 
             }
             //Check for MORE than 50%
-            correctAnswers >= totalQuests * 0.5 -> {
+            correctAnswers >= totalQuests.toDouble() * 0.5 -> {
                 binding.tvInfo.text =
                     "$emojiThumbsUp Неплохо $userName $emojiThumbsUp\n" +
                             "Ты можешь лучше, повнимательней..."
@@ -55,7 +55,7 @@ class ResultActivity : AppCompatActivity() {
 
             }
             //Check for LESS than 50%
-            correctAnswers < totalQuests / 2 -> {
+            correctAnswers < totalQuests.toDouble() / 2 -> {
                 binding.tvInfo.text = "$emojiGoblin $userName $emojiGoblin\n" +
                         "$emojiAnger БООЛЬШЕ ПРАКТИКИ $emojiAnger\n" +
                         " $emojiAnger $emojiAnger БООООЛЬШЕ $emojiAnger $emojiAnger"
