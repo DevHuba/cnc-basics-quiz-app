@@ -1,48 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_bg"
-    tools:context=".QuizQuestionsActivity"
-    android:fillViewport="true"
-    tools:ignore="ScrollViewCount">
+    tools:context=".QuizQuestionsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp"
-        >
+        android:padding="16dp">
 
-            <!-- TODO: In image view height and width must be dynamic values-->
-            <ImageView
-                android:id="@+id/imgJoke"
-                android:layout_width="400dp"
-                android:layout_height="700dp"
-                android:contentDescription="@string/img_joke"
-                android:visibility="gone" />
-
+<!--        Joke-->
+        <ImageView
+            android:id="@+id/imgJoke"
+            android:layout_width="match_parent"
+            android:layout_height="1700dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/img_joke"
+            android:visibility="gone" />
+<!--        Question-->
         <TextView
             android:id="@+id/tvQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="40dp"
             android:gravity="center"
             android:textColor="@color/color_text"
             android:textSize="22sp"
             tools:text="Description of this code" />
-
+<!--        Question image-->
         <ImageView
             android:id="@+id/ivQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
             android:contentDescription="@string/cd_quiz_image" />
 
+<!--        Progress bar-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,68 +69,86 @@
                 android:textColor="@color/color_text"
                 android:textSize="14sp"
                 tools:text="2/10" />
+
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvAnswer1"
+<!--        Answers scroll-->
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/default_option_border_bg"
-            android:gravity="center"
-            android:padding="16dp"
-            android:textColor="@color/color_text"
-            android:textSize="14sp"
-            tools:text="Description of this code" />
+            android:layout_height="290dp"
+            android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/tvAnswer2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/default_option_border_bg"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            android:gravity="center"
-            android:padding="16dp"
-            android:textColor="@color/color_text"
-            android:textSize="14sp"
-            tools:text="Description of this code" />
+                <TextView
+                    android:id="@+id/tvAnswer1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/default_option_border_bg"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:textColor="@color/color_text"
+                    android:textSize="14sp"
+                    tools:text="Description of this code" />
 
-        <TextView
-            android:id="@+id/tvAnswer3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/default_option_border_bg"
+                <TextView
+                    android:id="@+id/tvAnswer2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/default_option_border_bg"
 
-            android:gravity="center"
-            android:padding="16dp"
-            android:textColor="@color/color_text"
-            android:textSize="14sp"
-            tools:text="Description of this code" />
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:textColor="@color/color_text"
+                    android:textSize="14sp"
+                    tools:text="Description of this code" />
 
-        <TextView
-            android:id="@+id/tvAnswer4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/default_option_border_bg"
+                <TextView
+                    android:id="@+id/tvAnswer3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/default_option_border_bg"
 
-            android:gravity="center"
-            android:padding="16dp"
-            android:textColor="@color/color_text"
-            android:textSize="14sp"
-            tools:text="Description of this code" />
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:textColor="@color/color_text"
+                    android:textSize="14sp"
+                    tools:text="Description of this code" />
 
+                <TextView
+                    android:id="@+id/tvAnswer4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/default_option_border_bg"
+
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:textColor="@color/color_text"
+                    android:textSize="14sp"
+                    tools:text="Description of this code" />
+
+
+            </LinearLayout>
+
+        </ScrollView>
+<!--        Button-->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="60dp"
             android:background="@drawable/btn_submit_style"
             android:textColor="@color/color_text"
             android:textSize="18sp" />
 
     </LinearLayout>
-</ScrollView>
+
+</LinearLayout>
