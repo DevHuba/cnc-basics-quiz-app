@@ -55,7 +55,7 @@ class ResultActivity : AppCompatActivity() {
 
             }
             //Check for LESS than 50%
-            correctAnswers < totalQuests.toDouble() / 2 -> {
+            correctAnswers < totalQuests.toDouble() / 2.0 -> {
                 binding.tvInfo.text = "$emojiGoblin $userName $emojiGoblin\n" +
                         "$emojiAnger БООЛЬШЕ ПРАКТИКИ $emojiAnger\n" +
                         " $emojiAnger $emojiAnger БООООЛЬШЕ $emojiAnger $emojiAnger"
