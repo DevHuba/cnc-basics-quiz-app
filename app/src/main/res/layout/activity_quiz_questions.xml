@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/color_bg"
+    android:padding="16dp"
     tools:context=".QuizQuestionsActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="16dp">
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:gravity="center"-->
+<!--        android:orientation="vertical"-->
+<!--        android:padding="16dp">-->
 
 <!--        Question-->
         <TextView
@@ -24,29 +26,48 @@
             android:gravity="center"
             android:textColor="@color/color_text"
             android:textSize="22sp"
-            tools:text="Description of this code" />
+            tools:text="Description of this code"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+
+            />
+
 <!--        Question image-->
         <ImageView
             android:id="@+id/ivQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:contentDescription="@string/cd_quiz_image" />
+            android:contentDescription="@string/cd_quiz_image"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvQuestion"
+            />
 
         <ImageView
             android:id="@+id/ivJoke"
             android:layout_width="350dp"
             android:layout_height="300dp"
             android:visibility="gone"
-            android:contentDescription="@string/img_joke" />
+            android:contentDescription="@string/img_joke"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvQuestion"
+            />
 
 <!--        Progress bar-->
         <LinearLayout
+            android:id="@+id/llProgressBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvQuestion"
+            >
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -73,9 +94,13 @@
         </LinearLayout>
 <!--        Answers scroll-->
         <ScrollView
+            android:id="@+id/svAnswers"
             android:layout_width="match_parent"
             android:layout_height="290dp"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llProgressBar">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -147,8 +172,9 @@
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/btn_submit_style"
             android:textColor="@color/color_text"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </LinearLayout>
-
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
