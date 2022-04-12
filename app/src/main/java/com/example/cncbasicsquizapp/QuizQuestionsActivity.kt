@@ -152,14 +152,11 @@ class QuizQuestionsActivity : AppCompatActivity() {
                             R.drawable.sutulij_ustal
                         )
                         val randomForWrongImages = (0 until wrongImageArray.size).random()
+                        binding.ivQuestion.visibility = View.GONE
                         //Image joke logic for wrong answer
-                        binding.imgJoke.setImageResource(wrongImageArray[randomForWrongImages])
-                        binding.imgJoke.visibility = View.VISIBLE
-                        //Joke shows only for 2000 milliseconds
-                        val handler = Handler(Looper.getMainLooper())
-                        handler.postDelayed({
-                            binding.imgJoke.visibility = View.GONE
-                        }, 2000)
+                        binding.ivJoke.visibility = View.VISIBLE
+                        binding.ivJoke.setImageResource(wrongImageArray[randomForWrongImages])
+
                     }
 
                     //If correct answer
@@ -176,14 +173,10 @@ class QuizQuestionsActivity : AppCompatActivity() {
                             R.drawable.correct_four,
                         )
                         val randomForCorrectImages = (0 until correctImageArray.size).random()
+                        binding.ivQuestion.visibility = View.GONE
                         //Image joke logic for correct answer
-                        binding.imgJoke.setImageResource(correctImageArray[randomForCorrectImages])
-                        binding.imgJoke.visibility = View.VISIBLE
-                        //Joke shows only for 2000 milliseconds
-                        val handler = Handler(Looper.getMainLooper())
-                        handler.postDelayed({
-                            binding.imgJoke.visibility = View.GONE
-                        }, 2000)
+                        binding.ivJoke.visibility = View.VISIBLE
+                        binding.ivQuestion.setImageResource(correctImageArray[randomForCorrectImages])
                     }
 
                     //If last question
@@ -240,6 +233,8 @@ class QuizQuestionsActivity : AppCompatActivity() {
         //Set random prefix and question
         binding.tvQuestion.text = "$randomPrefix ${question.question}"
         //Set question image
+        binding.ivJoke.visibility = View.GONE
+        binding.ivQuestion.visibility = View.VISIBLE
         binding.ivQuestion.setImageResource(question.image)
 
         //Set random answers

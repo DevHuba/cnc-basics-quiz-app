@@ -14,14 +14,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-<!--        Joke-->
-        <ImageView
-            android:id="@+id/imgJoke"
-            android:layout_width="match_parent"
-            android:layout_height="1700dp"
-            android:layout_gravity="center"
-            android:contentDescription="@string/img_joke"
-            android:visibility="gone" />
 <!--        Question-->
         <TextView
             android:id="@+id/tvQuestion"
@@ -38,7 +30,15 @@
             android:id="@+id/ivQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:contentDescription="@string/cd_quiz_image" />
+
+        <ImageView
+            android:id="@+id/ivJoke"
+            android:layout_width="350dp"
+            android:layout_height="300dp"
+            android:visibility="gone"
+            android:contentDescription="@string/img_joke" />
 
 <!--        Progress bar-->
         <LinearLayout
