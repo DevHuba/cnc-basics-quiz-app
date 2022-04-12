@@ -38,26 +38,24 @@ class ResultActivity : AppCompatActivity() {
         when {
             correctAnswers >= totalQuests.toDouble() * 0.7 -> {
                 //Set name and text into info view
-                binding.tvInfo.text =
-                    "$emojiParty Отличная работа $userName $emojiParty\n" +
-                            "$emojiEducation Теперь можно готовиться к устной $emojiEducation"
+                binding.tvInfoName.text = "$emojiParty Отличная работа $userName $emojiParty\n"
+                binding.tvInfo.text = "$emojiEducation Теперь можно готовиться к устной $emojiEducation"
                 binding.ivResultBottom.setImageResource(R.drawable.finish2)
                 binding.ivResultOnTop.visibility = View.GONE
 
             }
             //Check for MORE than 50%
             correctAnswers >= totalQuests.toDouble() * 0.5 -> {
-                binding.tvInfo.text =
-                    "$emojiThumbsUp Неплохо $userName $emojiThumbsUp\n" +
-                            "Ты можешь лучше, повнимательней..."
+                binding.tvInfoName.text = "$emojiThumbsUp Неплохо $userName $emojiThumbsUp\n"
+                binding.tvInfo.text = "Ты можешь лучше, повнимательней..."
                 binding.ivResultBottom.setImageResource(R.drawable.finish)
                 binding.ivResultOnTop.visibility = View.GONE
 
             }
             //Check for LESS than 50%
             correctAnswers < totalQuests.toDouble() / 2.0 -> {
-                binding.tvInfo.text = "$emojiGoblin $userName $emojiGoblin\n" +
-                        "$emojiAnger БООЛЬШЕ ПРАКТИКИ $emojiAnger\n" +
+                binding.tvInfoName.text = "$emojiGoblin $userName $emojiGoblin\n"
+                binding.tvInfo.text = "$emojiAnger БООЛЬШЕ ПРАКТИКИ $emojiAnger\n" +
                         " $emojiAnger $emojiAnger БООООЛЬШЕ $emojiAnger $emojiAnger"
                 binding.ivResultBottom.setImageResource(R.drawable.brain)
                 binding.ivResultOnTop.setImageResource(R.drawable.failed)
