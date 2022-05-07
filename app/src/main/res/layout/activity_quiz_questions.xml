@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginBottom="40dp"
         android:gravity="center"
         android:textColor="@color/color_text"
         android:textSize="22sp"
@@ -42,18 +41,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="visible"
             android:contentDescription="@string/cd_quiz_image"
 
             />
 
         <ImageView
             android:id="@+id/ivJoke"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxHeight="250dp"
             android:layout_gravity="center"
-            android:contentDescription="@string/img_joke"
-            android:visibility="gone" />
+            android:layout_marginHorizontal="40dp"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/img_joke" />
 
     </LinearLayout>
 

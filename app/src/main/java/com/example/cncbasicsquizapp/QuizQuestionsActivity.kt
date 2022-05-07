@@ -104,6 +104,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
                         }
                         else -> {
+                            //Move to result activity
                             val intent = Intent(this, ResultActivity::class.java)
                             intent.putExtra(Constants.USER_NAME, userName)
                             intent.putExtra(Constants.CORRECT_ANSWERS, globalCorrectAnswers)
@@ -128,6 +129,8 @@ class QuizQuestionsActivity : AppCompatActivity() {
                     if (question != null) {
                         answerView(gCorrectAnswer, R.drawable.correct_option_border_bg)
                         correctAnswerStyle(gCorrectAnswer,R.drawable.correct_option_border_bg)
+
+                        //TODO:Can be replaced with binging solution
                         changeSubmitClickable(true)
                     }
 
@@ -137,6 +140,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
                         //Setting selected answer with wrong style
                         answerView(globalSelectedAnswer, R.drawable.wrong_option_border_bg)
 
+                        //TODO:Can be replaced with binging solution
                         changeSubmitClickable(true)
 
                         //Random images for wrong answer
@@ -173,7 +177,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
                         binding.ivQuestion.visibility = View.GONE
                         //Image joke logic for correct answer
                         binding.ivJoke.visibility = View.VISIBLE
-                        binding.ivQuestion.setImageResource(correctImageArray[randomForCorrectImages])
+                        binding.ivJoke.setImageResource(correctImageArray[randomForCorrectImages])
                     }
 
                     //If last question
@@ -240,6 +244,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
             question.answerThree,
             question.answerFour
         )
+
         //Add numbers with fixed scope into mutable set for random answers
         val scopeForRandomAnswers = (0 until answersForQuestion.size).toMutableSet()
 
