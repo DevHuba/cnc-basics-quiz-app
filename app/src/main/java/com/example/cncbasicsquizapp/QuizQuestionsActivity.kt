@@ -223,7 +223,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
 
         //Array for question prefix
         val prefixArray: ArrayList<String> = arrayListOf(
-            "Укажи ка", "Какое будет", "Чикни что за",
+            "Укажи ка", "Чикни что за",
             "Напомни ка", "Тыкни", "Выбери", "Тычкани", "Клацани"
         )
 
